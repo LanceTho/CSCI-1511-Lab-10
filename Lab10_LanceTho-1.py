@@ -1,0 +1,6 @@
+"""
+Lab10_LanceTho-1.py
+Lance Thongsavanh
+Create an OOP-based program that displays a menu of 4 predefined text files, lets the user choose one, then reads and analyzes that file. The program will count the frequency of every word in the selected file and print an alphabetical report.
+Date.
+"""
