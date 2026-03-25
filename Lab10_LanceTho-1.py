@@ -2,6 +2,7 @@
 Lab10_LanceTho-1.py
 Lance Thongsavanh
 Create an OOP-based program that displays a menu of 4 predefined text files, lets the user choose one, then reads and analyzes that file. The program will count the frequency of every word in the selected file and print an alphabetical report.
+The first line of code inside of print_report() that sorted the dictionary came from here: https://www.codegenes.net/blog/how-to-sort-dictionary-by-key-python/
 Date.
 """
 from pathlib import Path
@@ -26,7 +27,7 @@ Print the word and its count in the specified format (see example).
 class WordAnalyzer:
     def __init__(self, filepath: str):
         self.__pathlibrary = Path(filepath)
-        word_frequency = {}
+        self.word_frequency = {}
 
     def process_file(self) -> bool:
         try:
@@ -39,11 +40,20 @@ class WordAnalyzer:
             translator = str.maketrans("", "", string.punctuation)
             self.__pathlibrary.open()
             contents = self.__pathlibrary.read_text()
-            lines = contents.splitlines()
+            lines = contents.split()
             for line in lines:
-                print(line.translate(translator))
+                line = line.translate(translator)
+                line = line.lower()
+                if(line in self.word_frequency):
+                    self.word_frequency[line] += 1
+                else:
+                    self.word_frequency[line] = 1
             return True
 
+    def print_report(self):
+        self.word_frequency = {key: self.word_frequency[key] for key in sorted(self.word_frequency)}
+        for word in self.word_frequency:
+            print(f"{word:10}:: {self.word_frequency[word]}")
 
 """
 main() Function:
@@ -61,5 +71,6 @@ If processing was successful, it should then call the print_report() method.
 """
 
 if __name__ == "__main__":
-    text = WordAnalyzer("test_file.txt")
-    text.process_file()
+    text = WordAnalyzer("Tarzan.txt")
+    print(text.process_file())
+    text.print_report()
