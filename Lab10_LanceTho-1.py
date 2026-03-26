@@ -37,6 +37,7 @@ class WordAnalyzer:
             print(f"Exception Thrown: {e}")
             return False
         else:
+            
             translator = str.maketrans("", "", string.punctuation)
             self.__pathlibrary.open()
             contents = self.__pathlibrary.read_text()
@@ -53,7 +54,7 @@ class WordAnalyzer:
     def print_report(self):
         self.word_frequency = {key: self.word_frequency[key] for key in sorted(self.word_frequency)}
         for word in self.word_frequency:
-            print(f"{word:10}:: {self.word_frequency[word]}")
+            print(f"{word:15}:: {self.word_frequency[word]}")
 
 """
 main() Function:
@@ -70,7 +71,47 @@ Call the process_file() method.
 If processing was successful, it should then call the print_report() method.
 """
 
+def main():
+    while True:
+        print(f"--- Word Analyzer ---")
+        print(f"Please select a file to analyze:")
+        print(f"1. Princess Mars (Chapter 1)")
+        print(f"2. Bambi (Chapter 1)")
+        print(f"3. Pinocchio (Chapter 1)")
+        print(f"4. Winnie the Pooh (Chapter 1)")
+        print(f"5. Exit")
+
+        user_input: int = int(input("Enter your choice (1-5): "))
+        match user_input:
+            case 1:
+                text: WordAnalyzer = WordAnalyzer("princess_mars.txt")
+                print(f"Processing 'princess_mars.txt'...")
+                text.process_file()
+                text.print_report()
+                input("Press Enter to return to the menu...")
+            case 2:
+                text: WordAnalyzer = WordAnalyzer("bambi.txt")
+                print(f"Processing 'bambi.txt'...")
+                text.process_file()
+                text.print_report()
+                input("Press Enter to return to the menu...")
+            case 3:
+                text: WordAnalyzer = WordAnalyzer("pinocchio.txt")
+                print(f"Processing 'pinocchio.txt'...")
+                text.process_file()
+                text.print_report()
+                input("Press Enter to return to the menu...")
+            case 4:
+                text: WordAnalyzer = WordAnalyzer("winnie_the_pooh.txt")
+                print(f"Processing 'winnie_the_pooh.txt'...")
+                text.process_file()
+                text.print_report()
+                input("Press Enter to return to the menu...")
+            case 5:
+                print(f"Goodbye!")
+                break
+            case _:
+                print(f"Error: Invalid Option")
+
 if __name__ == "__main__":
-    text = WordAnalyzer("Tarzan.txt")
-    print(text.process_file())
-    text.print_report()
+    main()
